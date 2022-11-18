@@ -31,9 +31,16 @@ inputs:
   command-args:
     description: Optional, additional arguments to pass through to the generator.
     required: false
-
+  type-mappings:
+    description: Optional, additional arguments to pass through to the generator.
+    default: UNSET
+    required: false
+  import-mappings:
+    description: Optional, additional arguments to pass through to the generator.
+    default: UNSET
+    required: false
 runs:
   using: composite
   steps:
     - shell: bash
-      run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} "${{ inputs.command-args}}"
+      run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} "${{ inputs.command-args}}" "${{ inputs.type-mappings }}" "${{ inputs.import-mappings }}"

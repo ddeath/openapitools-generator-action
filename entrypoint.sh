@@ -7,6 +7,8 @@ openapi_url=$4
 config_file=$5
 template_dir=$6
 command_args=$7
+type_mappings=$8
+import_mappings=$9
 
 cmd="docker run -u $(id -u) --rm --workdir /github/workspace -v $GITHUB_WORKSPACE:/github/workspace"
 cmd="$cmd openapitools/openapi-generator-cli:$generator_tag generate"
@@ -24,6 +26,14 @@ fi
 
 if [ "$template_dir" != "UNSET" ]; then
     cmd="$cmd -t /github/workspace/$template_dir"
+fi
+
+if [ "$type_mappings" != "UNSET" ]; then
+    cmd="$cmd --type-mappings $type_mappings"
+fi
+
+if [ "$import_mappings" != "UNSET" ]; then
+    cmd="$cmd --import-mappings $import_mappings"
 fi
 
 if [ -n "$command_args" ]; then
